@@ -1,38 +1,42 @@
 <template>
   <h2>Please, choose the shop which you visited and rate our service</h2>
   
-  <Mega>
+   <div id="app">
     <button v-on:click="sendEmoji('normal')">Normal 😃</button>
     <button v-on:click="sendEmoji('good')">Good 😍</button>
     <button v-on:click="sendEmoji('bad')">Bad 😎</button>
-  </Mega>
+   </div>
 
-  <MegaMoskva>
-    <button v-on:click="sendEmoji('normal')">Normal 😃</button>
-    <button v-on:click="sendEmoji('good')">Good 😍</button>
-    <button v-on:click="sendEmoji('bad')">Bad 😎</button>
-  </MegaMoskva>
-
+   <!-- { path: '/product/:id', component: Product },
+   { path: '/shop/:id', component: Shop },
+   { path: '/product/:id', component: () => import('../views/Product.vue') }, -->
+ 
   <!-- <div id="nav">
-    <router-link to="/Mega">Mega</router-link> |
-    <router-link to="/MegaMoskva">MegaMoskva</router-link>
+    <router-link to="/shops/1" @click.prevent>Mega</router-link> |
+    <router-link to="/shops/2" @click.prevent>Mega Moskva</router-link>
   </div> -->
+<router-view/>
 
 </template>
 
 <script>
 import axios from 'axios';
-import Mega from './components/Mega.vue';
-import MegaMoskva from './components/MegaMoskva.vue';
+// import Mega from './components/Mega.vue';
+// import MegaMoskva from './components/MegaMoskva.vue';
 export default {
   name: 'App',
-  components: {
-    Mega,
-    MegaMoskva
-  },
+  // components: {
+  //   Mega,
+  //   MegaMoskva
+  // },
   data() {
     return {
       feedbacks: [],
+      modifiedData: {
+          status: '',
+          ip_address: '',
+          shop_id: this.$route.params.id
+        },
       error: null
     }
   },
@@ -52,7 +56,7 @@ methods: {
         data: {
             status: status, //modifiedData.status,
             ip_address: '126.12.29.29', //modifiedData.ip_address,
-            shop_id: 1 //modifiedData.shop_id
+            shop_id: this.$route.params.id //modifiedData.shop_id
           }
         })
         .then(response => {

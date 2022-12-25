@@ -4,23 +4,18 @@
       <button v-on:click="sendEmoji('good')">Good 😍</button>
       <button v-on:click="sendEmoji('bad')">Bad 😎</button>
     </div>
-  
-    <div id="nav">
-      <router-link to="/shops/2">MegaMoskva</router-link>
-    </div>
-  
-  </template>
+</template>
   
   <script>
   import axios from 'axios'
   export default {
-    name: 'MegaMoskva',
+    name: 'ShopVue',
     data() {
       return {
         modifiedData: {
           status: '',
           ip_address: '',
-          shop_id: 2
+          shop_id: this.$route.params.id
         },
         error: null
       }
@@ -32,7 +27,7 @@
           data: {
               status: status, //modifiedData.status,
               ip_address: '126.12.29.29', //modifiedData.ip_address,
-              shop_id: 2 //modifiedData.shop_id
+              shop_id: this.$route.params.id //modifiedData.shop_id
             }
           })
           .then(response => {
@@ -49,7 +44,7 @@
   </script>
   
   <style>
-  #MegaMoskva {
+  #app {
     font-family: Avenir, Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
